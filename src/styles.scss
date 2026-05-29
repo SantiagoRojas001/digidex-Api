@@ -30,42 +30,49 @@ body {
   --ion-color-primary-shade: #3b55d1;
   --ion-color-primary-tint: #5671f0;
 
-  --ion-color-secondary: #64dfdf;
-  --ion-color-secondary-rgb: 100, 223, 223;
-  --ion-color-secondary-contrast: #000000;
-  --ion-color-secondary-shade: #58c4c4;
-  --ion-color-secondary-tint: #74e2e2;
+  --ion-color-secondary: #0891b2;
+  --ion-color-secondary-rgb: 8, 145, 178;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-shade: #0780a0;
+  --ion-color-secondary-tint: #209dbc;
 
-  --ion-color-tertiary: #7209b7;
-  --ion-color-tertiary-rgb: 114, 9, 183;
+  --ion-color-tertiary: #7c3aed;
+  --ion-color-tertiary-rgb: 124, 58, 237;
   --ion-color-tertiary-contrast: #ffffff;
-  --ion-color-tertiary-shade: #6408a1;
-  --ion-color-tertiary-tint: #8022be;
+  --ion-color-tertiary-shade: #6d33d1;
+  --ion-color-tertiary-tint: #894eef;
 
-  --ion-color-success: #2dc653;
-  --ion-color-warning: #f5a623;
+  --ion-color-success: #16a34a;
+  --ion-color-warning: #d97706;
   --ion-color-danger: #e94560;
-  --ion-color-dark: #1a1a2e;
-  --ion-color-medium: #8c8fa3;
-  --ion-color-light: #f5f5f5;
+  --ion-color-dark: #1e2040;
+  --ion-color-medium: #6b7499;
+  --ion-color-light: #f0f4ff;
 
-  --ion-background-color: #0f0f1a;
-  --ion-background-color-rgb: 15, 15, 26;
-  --ion-text-color: #eaeaea;
-  --ion-text-color-rgb: 234, 234, 234;
+  --ion-background-color: #f0f4ff;
+  --ion-background-color-rgb: 240, 244, 255;
+  --ion-text-color: #1e2040;
+  --ion-text-color-rgb: 30, 32, 64;
 
-  --ion-item-background: #1a1a2e;
-  --ion-toolbar-background: #16213e;
+  --ion-item-background: #ffffff;
+  --ion-toolbar-background: #4361ee;
+  --ion-card-background: #ffffff;
 }
 
-// Scrollbar customization
-::-webkit-scrollbar {
-  width: 4px;
+// Spinner y refresher en tema claro
+ion-spinner { color: var(--ion-color-primary); }
+
+ion-refresher-content {
+  --color: var(--ion-color-primary);
+  color: var(--ion-color-primary);
 }
-::-webkit-scrollbar-track {
-  background: #0f0f1a;
+
+ion-skeleton-text {
+  --background: rgba(67, 97, 238, 0.07);
+  --background-rgb: 67, 97, 238;
 }
-::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.2);
-  border-radius: 4px;
-}
+
+// Scrollbar
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #e8ecf8; }
+::-webkit-scrollbar-thumb { background: rgba(67,97,238,0.3); border-radius: 4px; }

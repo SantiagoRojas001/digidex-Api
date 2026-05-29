@@ -1,69 +1,85 @@
-$primary-dark: #1a1a2e;
-$primary-mid: #16213e;
-$accent: #e94560;
-$text-light: #eaeaea;
+$blue:   #4361ee;
+$coral:  #e94560;
+$navy:   #1e2040;
+$bg:     #f0f4ff;
+$muted:  #6b7499;
+$border: rgba(67, 97, 238, 0.12);
+$shadow: rgba(67, 97, 238, 0.10);
 
+// ─── Header ─────────────────────────────────────────────────
 ion-header {
   ion-toolbar {
-    --background: linear-gradient(135deg, #{$primary-dark}, #{$primary-mid});
-    --color: #{$text-light};
+    --background: linear-gradient(135deg, #3a57e8, #6b7de8);
+    --color: #ffffff;
+    --min-height: 48px;
+    box-shadow: 0 2px 16px rgba(67, 97, 238, 0.3);
   }
 }
 
 .header-title {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
+  flex-wrap: nowrap;
+  overflow: hidden;
 
   .digi-text {
-    font-size: 1.6rem;
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
     font-weight: 900;
-    color: #64dfdf;
+    color: #ffffff;
     letter-spacing: 1px;
-    text-shadow: 0 0 10px rgba(100, 223, 223, 0.5);
+    white-space: nowrap;
   }
 
   .dex-text {
-    font-size: 1.6rem;
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
     font-weight: 900;
-    color: $accent;
+    color: #ffd166;
     letter-spacing: 1px;
-    text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+    white-space: nowrap;
   }
 
   .header-subtitle {
-    font-size: 0.6rem;
-    color: rgba(255, 255, 255, 0.6);
-    margin-left: 8px;
+    font-size: clamp(0.45rem, 1.5vw, 0.6rem);
+    color: rgba(255, 255, 255, 0.65);
+    margin-left: 6px;
     letter-spacing: 2px;
     text-transform: uppercase;
     align-self: flex-end;
     padding-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
 ion-searchbar {
-  --background: rgba(255, 255, 255, 0.1);
-  --color: white;
-  --placeholder-color: rgba(255, 255, 255, 0.6);
-  --icon-color: rgba(255, 255, 255, 0.7);
+  --background: rgba(255, 255, 255, 0.22);
+  --color: #ffffff;
+  --placeholder-color: rgba(255, 255, 255, 0.65);
+  --icon-color: rgba(255, 255, 255, 0.8);
   --clear-button-color: white;
-  --border-radius: 12px;
+  --border-radius: 10px;
+  --box-shadow: none;
   padding: 4px 8px 8px;
+  font-size: 0.9rem;
 }
 
+// ─── Contenido ──────────────────────────────────────────────
 ion-content {
-  --background: #0f0f1a;
+  --background: #{$bg};
 }
 
 // ─── Contador ───────────────────────────────────────────────
 .results-count {
-  padding: 8px 12px 0;
+  padding: 10px 12px 0;
 
   ion-chip {
-    --background: transparent;
-    --color: rgba(255, 255, 255, 0.7);
-    font-size: 0.8rem;
+    --background: rgba(67, 97, 238, 0.08);
+    --color: #{$blue};
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid rgba(67, 97, 238, 0.18);
   }
 }
 
@@ -74,57 +90,70 @@ ion-content {
   align-items: center;
   justify-content: center;
   padding: 60px 20px;
-  color: rgba(255, 255, 255, 0.4);
+  color: $muted;
 
-  ion-icon { font-size: 3rem; margin-bottom: 12px; }
-  p { font-size: 1.1rem; letter-spacing: 1px; }
+  ion-icon { font-size: 3rem; margin-bottom: 12px; color: rgba(67,97,238,0.3); }
+  p { font-size: 1rem; letter-spacing: 1px; }
 }
 
 // ─── Grid ───────────────────────────────────────────────────
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  padding: 12px;
+  gap: clamp(8px, 3vw, 14px);
+  padding: clamp(8px, 3vw, 14px);
 
   @media (min-width: 600px) {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 // ─── Skeleton ───────────────────────────────────────────────
 .card-skeleton {
-  height: 220px;
-  border-radius: 14px;
-  background: linear-gradient(160deg, #1d2040 0%, #111326 100%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  height: clamp(190px, 63vw, 260px);
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid $border;
+  box-shadow: 0 4px 16px $shadow;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px;
+  padding: 10px;
   gap: 10px;
+
+  @media (min-width: 600px) { height: clamp(200px, 44vw, 270px); }
+  @media (min-width: 900px) { height: clamp(200px, 33vw, 270px); }
 
   .skeleton-img {
     width: 80%;
-    height: 130px;
-    border-radius: 8px;
+    flex: 1;
+    border-radius: 10px;
   }
 
   .skeleton-name {
     width: 65%;
-    height: 14px;
+    height: 12px;
     border-radius: 4px;
+    flex-shrink: 0;
   }
 }
 
 // ─── Contenedor con perspectiva 3D ──────────────────────────
 .card-container {
+  -webkit-perspective: 1000px;
   perspective: 1000px;
   cursor: pointer;
-  height: 220px;
+  height: clamp(190px, 63vw, 260px);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   isolation: isolate;
+
+  @media (min-width: 600px) { height: clamp(200px, 44vw, 270px); }
+  @media (min-width: 900px) { height: clamp(200px, 33vw, 270px); }
 }
 
 // ─── La tarjeta que rota ────────────────────────────────────
@@ -132,11 +161,14 @@ ion-content {
   position: relative;
   width: 100%;
   height: 100%;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+  -webkit-transition: -webkit-transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
   will-change: transform;
 
   &.flipped {
+    -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
   }
 }
@@ -145,41 +177,42 @@ ion-content {
 .card-face {
   position: absolute;
   inset: 0;
-  backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  border-radius: 14px;
-  background: linear-gradient(160deg, #1d2040 0%, #111326 100%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow:
-    0 8px 28px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0.01px);
+  transform: translate3d(0, 0, 0.01px);
+  will-change: transform;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid $border;
+  box-shadow: 0 4px 20px $shadow, 0 1px 4px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 9px 9px 8px;
+  padding: clamp(6px, 2.5vw, 10px);
   overflow: hidden;
 }
 
 // ─── Frente ─────────────────────────────────────────────────
 .card-front {
-  // Línea de acento superior
   &::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, $accent 0%, rgba(233,69,96,0) 100%);
-    border-radius: 14px 14px 0 0;
+    height: 4px;
+    background: linear-gradient(90deg, $coral 0%, rgba(233,69,96,0) 100%);
+    border-radius: 16px 16px 0 0;
   }
 
   .card-number {
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.18);
+    font-size: clamp(8px, 2.5vw, 10px);
+    color: rgba(67, 97, 238, 0.3);
     align-self: flex-start;
     font-weight: 700;
     font-family: monospace;
     line-height: 1;
     letter-spacing: 0.5px;
+    flex-shrink: 0;
   }
 
   .card-image-wrapper {
@@ -188,31 +221,33 @@ ion-content {
     align-items: center;
     justify-content: center;
     width: 100%;
-    background: radial-gradient(ellipse 70% 55% at 50% 55%, rgba(100,223,223,0.08) 0%, transparent 70%);
+    min-height: 0;
+    background: radial-gradient(ellipse 70% 55% at 50% 55%, rgba(67,97,238,0.05) 0%, transparent 70%);
 
     img {
-      max-width: 86%;
-      max-height: 116px;
+      max-width: 84%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
       object-fit: contain;
     }
   }
 
   .card-footer {
     width: 100%;
-    padding-top: 6px;
-    margin-top: 4px;
-    border-top: 1px solid rgba(233, 69, 96, 0.35);
-    background: linear-gradient(180deg, transparent, rgba(233, 69, 96, 0.06));
+    padding-top: clamp(4px, 1.5vw, 7px);
+    margin-top: 3px;
+    border-top: 1.5px solid rgba(233, 69, 96, 0.22);
+    flex-shrink: 0;
   }
 
   .card-name {
-    font-size: 11px;
+    font-size: clamp(9px, 2.8vw, 11px);
     font-weight: 800;
-    color: #ffffff;
+    color: $navy;
     text-align: center;
     margin: 0;
-    letter-spacing: 0.8px;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+    letter-spacing: 0.4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -220,80 +255,85 @@ ion-content {
 
   .card-level {
     display: block;
-    font-size: 8px;
-    font-weight: 800;
+    font-size: clamp(6px, 2vw, 8px);
+    font-weight: 700;
     font-style: italic;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     text-align: center;
-    margin-top: 3px;
+    margin-top: 2px;
 
     &::before { content: '◆ '; font-style: normal; font-size: 6px; }
 
-    &.level-fresh       { color: #2dd36f; text-shadow: 0 0 6px rgba(45,211,111,0.7); }
-    &.level-in-training { color: #a66cfa; text-shadow: 0 0 6px rgba(166,108,250,0.7); }
-    &.level-rookie      { color: #5b9fff; text-shadow: 0 0 6px rgba(91,159,255,0.7); }
-    &.level-champion    { color: #ffc409; text-shadow: 0 0 6px rgba(255,196,9,0.6); }
-    &.level-ultimate    { color: #ff5c72; text-shadow: 0 0 6px rgba(255,92,114,0.7); }
-    &.level-mega        { color: #c8c8e8; text-shadow: 0 0 6px rgba(200,200,232,0.4); }
-    &.level-ultra       { color: #89a0c0; }
-    &.level-armor       { color: #34d3b8; text-shadow: 0 0 6px rgba(52,211,184,0.6); }
-    &.level-unknown     { color: rgba(255,255,255,0.2); letter-spacing: 3px; font-style: normal; }
+    &.level-fresh       { color: #16a34a; }
+    &.level-in-training { color: #7c3aed; }
+    &.level-rookie      { color: #2563eb; }
+    &.level-champion    { color: #d97706; }
+    &.level-ultimate    { color: $coral;  }
+    &.level-mega        { color: #374151; }
+    &.level-ultra       { color: #6b7280; }
+    &.level-armor       { color: #0891b2; }
+    &.level-unknown     { color: #c4c9d8; letter-spacing: 3px; font-style: normal; }
   }
 }
 
 // ─── Reverso ────────────────────────────────────────────────
 .card-back {
-  transform: rotateY(180deg);
-  background: linear-gradient(160deg, #0d1025 0%, #161b38 100%);
-  border-color: rgba(100, 223, 223, 0.18);
+  -webkit-transform: rotateY(180deg) translate3d(0, 0, 0.01px);
+  transform: rotateY(180deg) translate3d(0, 0, 0.01px);
+  background: #f4f6ff;
+  border-color: $border;
   justify-content: flex-start;
-  padding: 10px 10px 8px;
+  padding: clamp(8px, 2.5vw, 12px) clamp(8px, 2.5vw, 12px) clamp(6px, 2vw, 10px);
 
-  // Línea de acento superior en cyan
   &::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #64dfdf 0%, rgba(100,223,223,0) 100%);
-    border-radius: 14px 14px 0 0;
+    height: 4px;
+    background: linear-gradient(90deg, $blue 0%, rgba(67,97,238,0) 100%);
+    border-radius: 16px 16px 0 0;
   }
 
   .back-title {
-    font-size: 12px;
+    font-size: clamp(9px, 2.8vw, 12px);
     font-weight: 900;
-    color: #64dfdf;
-    text-shadow: 0 0 10px rgba(100, 223, 223, 0.5);
-    margin: 0 0 8px;
+    color: $blue;
+    margin: 0 0 clamp(5px, 2vw, 8px);
     text-align: center;
     letter-spacing: 3px;
+    text-transform: uppercase;
     width: 100%;
+    flex-shrink: 0;
   }
 
   .stat-row {
     width: 100%;
-    margin-bottom: 7px;
-    padding-bottom: 7px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: clamp(4px, 1.5vw, 7px);
+    padding-bottom: clamp(4px, 1.5vw, 7px);
+    border-bottom: 1px solid rgba(67, 97, 238, 0.08);
+    flex-shrink: 0;
 
     &:last-of-type { border-bottom: none; margin-bottom: 0; }
 
     .stat-label {
       display: block;
-      font-size: 8px;
-      font-weight: 800;
-      color: rgba(255, 255, 255, 0.3);
+      font-size: clamp(6px, 2vw, 8px);
+      font-weight: 700;
+      color: $muted;
       text-transform: uppercase;
-      letter-spacing: 1.2px;
+      letter-spacing: 1px;
     }
 
     .stat-value {
       display: block;
-      font-size: 12px;
+      font-size: clamp(10px, 3vw, 12px);
       font-weight: 600;
-      color: #e8eaf6;
-      margin-top: 2px;
+      color: $navy;
+      margin-top: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
@@ -302,14 +342,14 @@ ion-content {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    flex-shrink: 0;
 
     ion-button {
-      font-size: 10px;
+      font-size: clamp(9px, 2.5vw, 11px);
       font-weight: 700;
-      letter-spacing: 0.5px;
-      --color: #64dfdf;
-      --padding-start: 6px;
-      --padding-end: 6px;
+      --color: #{$blue};
+      --padding-start: 4px;
+      --padding-end: 4px;
     }
   }
 }

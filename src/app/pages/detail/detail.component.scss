@@ -1,24 +1,25 @@
-$primary-dark: #1a1a2e;
-$primary-mid: #16213e;
-$accent: #e94560;
-$accent-light: #64dfdf;
-$text-light: #eaeaea;
+$blue:  #4361ee;
+$coral: #e94560;
+$navy:  #1e2040;
+$bg:    #f0f4ff;
+$muted: #6b7499;
 
 ion-header {
   ion-toolbar {
-    --background: linear-gradient(135deg, #{$primary-dark}, #{$primary-mid});
-    --color: #{$text-light};
+    --background: linear-gradient(135deg, #3a57e8, #6b7de8);
+    --color: #ffffff;
+    box-shadow: 0 2px 16px rgba(67, 97, 238, 0.35);
   }
 }
 
 .detail-title {
   font-weight: 700;
   font-size: 1.1rem;
-  color: $accent-light;
+  color: #ffffff;
 }
 
 ion-content.detail-content {
-  --background: #0f0f1a;
+  --background: #{$bg};
 }
 
 .no-data {
@@ -28,10 +29,10 @@ ion-content.detail-content {
   justify-content: center;
   height: 70vh;
   gap: 16px;
-  color: rgba(255,255,255,0.6);
+  color: $muted;
   padding: 20px;
 
-  h3 { color: white; font-size: 1.3rem; }
+  h3 { color: $navy; font-size: 1.3rem; }
   p { text-align: center; font-size: 0.95rem; }
 }
 
@@ -44,32 +45,26 @@ ion-content.detail-content {
 // Decoración de fondo
 .bg-decoration {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
 
   .circle-1 {
     position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 300px;
-    height: 300px;
+    top: -100px; right: -100px;
+    width: 300px; height: 300px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(100, 223, 223, 0.08), transparent 70%);
+    background: radial-gradient(circle, rgba(67,97,238,0.08), transparent 70%);
   }
 
   .circle-2 {
     position: absolute;
-    bottom: -80px;
-    left: -80px;
-    width: 250px;
-    height: 250px;
+    bottom: -80px; left: -80px;
+    width: 250px; height: 250px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(233, 69, 96, 0.08), transparent 70%);
+    background: radial-gradient(circle, rgba(233,69,96,0.07), transparent 70%);
   }
 }
 
@@ -77,53 +72,49 @@ ion-content.detail-content {
 .digimon-detail-card {
   position: relative;
   z-index: 1;
-  background: #1a1a2e;
+  background: #ffffff;
   border-radius: 24px;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  border: 1px solid rgba(67, 97, 238, 0.12);
+  box-shadow: 0 8px 32px rgba(67, 97, 238, 0.12), 0 2px 8px rgba(0,0,0,0.05);
   overflow: hidden;
   margin: 0;
   animation: slideInUp 0.4s ease forwards;
 }
 
-// Contenedor de imagen
+// Imagen
 .card-image-container {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 32px 20px 16px;
-  background: linear-gradient(180deg, #16213e 0%, #1a1a2e 100%);
+  background: linear-gradient(180deg, #eef2ff 0%, #f4f6ff 100%);
 
   .image-glow {
     position: absolute;
-    width: 180px;
-    height: 180px;
+    width: 180px; height: 180px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(100, 223, 223, 0.15), transparent 70%);
-    top: 50%;
-    left: 50%;
+    background: radial-gradient(circle, rgba(67,97,238,0.10), transparent 70%);
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
   }
 
   .digimon-image {
-    width: 200px;
-    height: 200px;
+    width: 200px; height: 200px;
     object-fit: contain;
     position: relative;
     z-index: 1;
-    filter: drop-shadow(0 0 20px rgba(100, 223, 223, 0.3));
     animation: floatAnim 3s ease-in-out infinite;
   }
 }
 
-// Cabecera de la tarjeta
+// Cabecera
 .card-header-section {
   text-align: center;
   padding: 16px 20px 8px;
 
   .digimon-title {
-    color: $text-light;
+    color: $navy;
     font-size: 1.8rem;
     font-weight: 900;
     letter-spacing: 1px;
@@ -131,7 +122,7 @@ ion-content.detail-content {
   }
 
   .digimon-id {
-    color: rgba(255,255,255,0.4);
+    color: rgba(67, 97, 238, 0.4);
     font-size: 0.8rem;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -139,7 +130,7 @@ ion-content.detail-content {
   }
 }
 
-// Sección de nivel
+// Nivel
 .level-section {
   display: flex;
   justify-content: center;
@@ -159,13 +150,13 @@ ion-content.detail-content {
   }
 }
 
-// Descripción del nivel
+// Descripción
 .level-description {
   text-align: center;
   padding: 8px 16px 16px;
 
   p {
-    color: rgba(255,255,255,0.55);
+    color: $muted;
     font-size: 0.85rem;
     line-height: 1.5;
     font-style: italic;
@@ -174,8 +165,8 @@ ion-content.detail-content {
 
 // Divider
 .info-divider {
-  --background: rgba(255,255,255,0.05);
-  --color: rgba(255,255,255,0.4);
+  --background: rgba(67, 97, 238, 0.06);
+  --color: #{$muted};
   font-size: 0.7rem;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -190,11 +181,11 @@ ion-content.detail-content {
 }
 
 .info-item {
-  --background: rgba(255,255,255,0.04);
+  --background: rgba(67, 97, 238, 0.04);
   --border-radius: 12px;
   border-radius: 12px;
   margin-bottom: 8px;
-  
+
   ion-icon {
     font-size: 1.3rem;
     margin-right: 4px;
@@ -202,14 +193,14 @@ ion-content.detail-content {
 
   .info-label {
     font-size: 0.65rem;
-    color: rgba(255,255,255,0.4);
+    color: $muted;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     margin: 0;
   }
 
   .info-value {
-    color: $text-light;
+    color: $navy;
     font-size: 0.95rem;
     font-weight: 600;
     margin: 2px 0 0;
@@ -222,28 +213,21 @@ ion-content.detail-content {
   padding: 0 4px 8px;
 
   .back-btn {
-    --background: linear-gradient(135deg, #e94560, #c0392b);
+    --background: linear-gradient(135deg, #{$blue}, #6b7de8);
     --border-radius: 50px;
     font-weight: 700;
     letter-spacing: 1px;
     height: 50px;
-    box-shadow: 0 4px 20px rgba(233, 69, 96, 0.4);
+    box-shadow: 0 4px 20px rgba(67, 97, 238, 0.35);
   }
 }
 
-// Animaciones
 @keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes floatAnim {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  50%       { transform: translateY(-10px); }
 }
