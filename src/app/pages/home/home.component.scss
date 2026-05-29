@@ -95,9 +95,9 @@ ion-content {
 // ─── Skeleton ───────────────────────────────────────────────
 .card-skeleton {
   height: 220px;
-  border-radius: 12px;
-  background: $primary-dark;
-  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: linear-gradient(160deg, #1d2040 0%, #111326 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -144,25 +144,39 @@ ion-content {
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  border-radius: 12px;
-  background: #ffffff;
-  border: 2px solid #d0d0d0;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  border-radius: 14px;
+  background: linear-gradient(160deg, #1d2040 0%, #111326 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 8px;
+  padding: 9px 9px 8px;
   overflow: hidden;
 }
 
 // ─── Frente ─────────────────────────────────────────────────
 .card-front {
+  // Línea de acento superior
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, $accent 0%, rgba(233,69,96,0) 100%);
+    border-radius: 14px 14px 0 0;
+  }
+
   .card-number {
-    font-size: 11px;
-    color: #aaa;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.18);
     align-self: flex-start;
-    font-weight: 600;
+    font-weight: 700;
+    font-family: monospace;
     line-height: 1;
+    letter-spacing: 0.5px;
   }
 
   .card-image-wrapper {
@@ -173,26 +187,31 @@ ion-content {
     width: 100%;
 
     img {
-      max-width: 88%;
-      max-height: 118px;
+      max-width: 86%;
+      max-height: 116px;
       object-fit: contain;
+      filter: drop-shadow(0 4px 14px rgba(100, 223, 223, 0.22))
+              drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+      transition: filter 0.3s;
     }
   }
 
   .card-footer {
     width: 100%;
-    border-top: 2.5px solid $accent;
-    padding-top: 5px;
+    padding-top: 6px;
     margin-top: 4px;
+    border-top: 1px solid rgba(233, 69, 96, 0.35);
+    background: linear-gradient(180deg, transparent, rgba(233, 69, 96, 0.06));
   }
 
   .card-name {
     font-size: 11px;
     font-weight: 800;
-    color: #1a1a2e;
+    color: #ffffff;
     text-align: center;
     margin: 0;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.8px;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -210,56 +229,70 @@ ion-content {
 
     &::before { content: '◆ '; font-style: normal; font-size: 6px; }
 
-    &.level-fresh       { color: #2dd36f; text-shadow: 0 0 5px rgba(45,211,111,0.6); }
-    &.level-in-training { color: #7a49e0; text-shadow: 0 0 5px rgba(122,73,224,0.6); }
-    &.level-rookie      { color: #3880ff; text-shadow: 0 0 5px rgba(56,128,255,0.6); }
-    &.level-champion    { color: #b07d00; text-shadow: 0 0 5px rgba(176,125,0,0.4); }
-    &.level-ultimate    { color: #eb445a; text-shadow: 0 0 5px rgba(235,68,90,0.6); }
-    &.level-mega        { color: #333;    text-shadow: none; }
-    &.level-ultra       { color: #777; }
-    &.level-armor       { color: #089a87; text-shadow: 0 0 5px rgba(8,154,135,0.5); }
-    &.level-unknown     { color: #ccc; letter-spacing: 3px; font-style: normal; }
+    &.level-fresh       { color: #2dd36f; text-shadow: 0 0 6px rgba(45,211,111,0.7); }
+    &.level-in-training { color: #a66cfa; text-shadow: 0 0 6px rgba(166,108,250,0.7); }
+    &.level-rookie      { color: #5b9fff; text-shadow: 0 0 6px rgba(91,159,255,0.7); }
+    &.level-champion    { color: #ffc409; text-shadow: 0 0 6px rgba(255,196,9,0.6); }
+    &.level-ultimate    { color: #ff5c72; text-shadow: 0 0 6px rgba(255,92,114,0.7); }
+    &.level-mega        { color: #c8c8e8; text-shadow: 0 0 6px rgba(200,200,232,0.4); }
+    &.level-ultra       { color: #89a0c0; }
+    &.level-armor       { color: #34d3b8; text-shadow: 0 0 6px rgba(52,211,184,0.6); }
+    &.level-unknown     { color: rgba(255,255,255,0.2); letter-spacing: 3px; font-style: normal; }
   }
 }
 
 // ─── Reverso ────────────────────────────────────────────────
 .card-back {
   transform: rotateY(180deg);
-  background: #f4f4f4;
+  background: linear-gradient(160deg, #0d1025 0%, #161b38 100%);
+  border-color: rgba(100, 223, 223, 0.18);
   justify-content: flex-start;
   padding: 10px 10px 8px;
 
+  // Línea de acento superior en cyan
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #64dfdf 0%, rgba(100,223,223,0) 100%);
+    border-radius: 14px 14px 0 0;
+  }
+
   .back-title {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 900;
-    color: #1a1a2e;
-    margin: 0 0 6px;
+    color: #64dfdf;
+    text-shadow: 0 0 10px rgba(100, 223, 223, 0.5);
+    margin: 0 0 8px;
     text-align: center;
-    text-decoration: underline;
-    text-decoration-color: $accent;
-    text-underline-offset: 3px;
+    letter-spacing: 3px;
     width: 100%;
   }
 
   .stat-row {
     width: 100%;
     margin-bottom: 7px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+    &:last-of-type { border-bottom: none; margin-bottom: 0; }
 
     .stat-label {
       display: block;
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 800;
-      color: #888;
+      color: rgba(255, 255, 255, 0.3);
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 1.2px;
     }
 
     .stat-value {
       display: block;
       font-size: 12px;
       font-weight: 600;
-      color: #1a1a2e;
-      margin-top: 1px;
+      color: #e8eaf6;
+      margin-top: 2px;
     }
   }
 
@@ -271,8 +304,11 @@ ion-content {
 
     ion-button {
       font-size: 10px;
-      --padding-start: 4px;
-      --padding-end: 4px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      --color: #64dfdf;
+      --padding-start: 6px;
+      --padding-end: 6px;
     }
   }
 }
