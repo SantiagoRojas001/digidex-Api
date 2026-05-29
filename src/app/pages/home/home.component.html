@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <div class="header-title">
+        <span class="digi-text">Digi</span><span class="dex-text">Dex</span>
+        <span class="header-subtitle">Enciclopedia Digital</span>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar
+      [(ngModel)]="searchTerm"
+      (ionInput)="filterDigimons()"
+      placeholder="Buscar Digimon por nombre o nivel..."
+      debounce="300"
+      animated="true"
+      show-clear-button="focus">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Pull-to-Refresh -->
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pulling-icon="chevron-down-circle-outline"
+      pulling-text="Desliza para actualizar..."
+      refreshing-spinner="bubbles"
+      refreshing-text="Actualizando DigiDex...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Loading State con Skeleton -->
+  <div *ngIf="isLoading" class="skeleton-container">
+    <ion-list>
+      <ion-item *ngFor="let i of [1,2,3,4,5,6,7,8]" lines="full">
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h2><ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text></h2>
+          <p><ion-skeleton-text [animated]="true" style="width: 40%"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- Lista de Digimons -->
+  <div *ngIf="!isLoading">
+    <!-- Sin resultados -->
+    <div *ngIf="filteredDigimons.length === 0" class="no-results">
+      <ion-icon name="search-outline" size="large"></ion-icon>
+      <p>No se encontraron Digimons</p>
+    </div>
+
+    <!-- Contador de resultados -->
+    <div class="results-count" *ngIf="filteredDigimons.length > 0">
+      <ion-chip color="secondary" outline="true">
+        <ion-icon name="albums-outline"></ion-icon>
+        <ion-label>{{ filteredDigimons.length }} Digimons encontrados</ion-label>
+      </ion-chip>
+    </div>
+
+    <ion-list>
+      <ion-item
+        *ngFor="let digimon of filteredDigimons; let i = index"
+        (click)="goToDetail(digimon)"
+        button="true"
+        detail="true"
+        lines="full"
+        class="digimon-item">
+
+        <ion-avatar slot="start" class="digimon-avatar">
+          <img
+            [src]="digimon.img"
+            [alt]="digimon.name"
+            (error)="$any($event.target).src='assets/no-image.png'">
+        </ion-avatar>
+
+        <ion-label>
+          <h2 class="digimon-name">{{ digimon.name }}</h2>
+          <p class="digimon-level">
+            <ion-badge [color]="getLevelColor(digimon.level)">
+              {{ digimon.level }}
+            </ion-badge>
+          </p>
+        </ion-label>
+
+        <ion-icon name="chevron-forward-outline" slot="end" color="medium"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

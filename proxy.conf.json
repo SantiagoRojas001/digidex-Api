@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "https://digimon-api.com",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": "/api"
+    }
+  }
+}

@@ -1,0 +1,176 @@
+// Variables de color inspiradas en el repositorio de referencia
+$primary-dark: #1a1a2e;
+$primary-mid: #16213e;
+$accent: #e94560;
+$accent-light: #ff6b6b;
+$gold: #f5a623;
+$text-light: #eaeaea;
+
+ion-header {
+  ion-toolbar {
+    --background: linear-gradient(135deg, #{$primary-dark}, #{$primary-mid});
+    --color: #{$text-light};
+  }
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-direction: row;
+  
+  .digi-text {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #64dfdf;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(100, 223, 223, 0.5);
+  }
+
+  .dex-text {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: $accent;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+  }
+
+  .header-subtitle {
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.6);
+    margin-left: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    align-self: flex-end;
+    padding-bottom: 2px;
+  }
+}
+
+ion-searchbar {
+  --background: rgba(255,255,255,0.1);
+  --color: white;
+  --placeholder-color: rgba(255,255,255,0.6);
+  --icon-color: rgba(255,255,255,0.7);
+  --clear-button-color: white;
+  --border-radius: 12px;
+  padding: 4px 8px 8px;
+}
+
+ion-content {
+  --background: #0f0f1a;
+}
+
+.skeleton-container {
+  padding: 8px 0;
+  
+  ion-item {
+    --background: #1a1a2e;
+    --border-color: rgba(255,255,255,0.08);
+  }
+
+  ion-thumbnail {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 8px;
+  }
+}
+
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: rgba(255,255,255,0.4);
+  
+  ion-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+  }
+}
+
+.results-count {
+  padding: 8px 16px;
+  
+  ion-chip {
+    --background: transparent;
+    --color: rgba(255,255,255,0.7);
+    font-size: 0.8rem;
+  }
+}
+
+ion-list {
+  background: transparent;
+  padding: 0 8px 16px;
+}
+
+.digimon-item {
+  --background: #1a1a2e;
+  --border-color: rgba(255,255,255,0.06);
+  --border-radius: 14px;
+  margin-bottom: 8px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+
+  .digimon-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid rgba(100, 223, 223, 0.4);
+    margin: 8px;
+    background: #0f0f1a;
+    
+    img {
+      object-fit: contain;
+      padding: 4px;
+    }
+  }
+
+  .digimon-name {
+    color: $text-light;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .digimon-level {
+    margin-top: 4px;
+    
+    ion-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border-radius: 6px;
+      padding: 3px 8px;
+    }
+  }
+}
+
+// Animación de entrada
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.digimon-item {
+  animation: fadeInUp 0.3s ease forwards;
+}

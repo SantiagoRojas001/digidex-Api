@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()" fill="clear" color="light">
+        <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+        Volver
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="detail-title">{{ digimonName }}</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="detail-content">
+  <!-- Sin datos -->
+  <div *ngIf="!digimon" class="no-data">
+    <ion-icon name="alert-circle-outline" size="large" color="warning"></ion-icon>
+    <h3>No se encontraron datos</h3>
+    <p>No se pudo cargar la información de este Digimon.</p>
+    <ion-button (click)="goBack()" color="primary" fill="solid" shape="round">
+      <ion-icon name="home-outline" slot="start"></ion-icon>
+      Ir al inicio
+    </ion-button>
+  </div>
+
+  <!-- Tarjeta de detalle -->
+  <div *ngIf="digimon" class="detail-wrapper">
+    <!-- Fondo decorativo -->
+    <div class="bg-decoration">
+      <div class="circle-1"></div>
+      <div class="circle-2"></div>
+    </div>
+
+    <ion-card class="digimon-detail-card">
+      <!-- Cabecera con imagen -->
+      <div class="card-image-container">
+        <div class="image-glow" [attr.data-level]="digimon.level"></div>
+        <img
+          [src]="digimon.img"
+          [alt]="digimon.name"
+          class="digimon-image"
+          (error)="$any($event.target).src='assets/no-image.png'">
+      </div>
+
+      <!-- Nombre e ID -->
+      <ion-card-header class="card-header-section">
+        <ion-card-title class="digimon-title">{{ digimon.name }}</ion-card-title>
+        <ion-card-subtitle class="digimon-id">
+          #{{ digimonName }}
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <!-- Contenido -->
+      <ion-card-content>
+        <!-- Badge de nivel -->
+        <div class="level-section">
+          <ion-badge [color]="getLevelColor(digimon.level)" class="level-badge">
+            <ion-icon name="flash-outline"></ion-icon>
+            {{ digimon.level }}
+          </ion-badge>
+        </div>
+
+        <!-- Descripción del nivel -->
+        <div class="level-description">
+          <p>{{ getLevelDescription(digimon.level) }}</p>
+        </div>
+
+        <!-- Separador -->
+        <ion-item-divider class="info-divider">
+          <ion-label>Información</ion-label>
+        </ion-item-divider>
+
+        <!-- Datos del Digimon -->
+        <ion-list class="info-list" lines="none">
+          <ion-item class="info-item">
+            <ion-icon name="person-outline" slot="start" color="primary"></ion-icon>
+            <ion-label>
+              <p class="info-label">NOMBRE</p>
+              <h3 class="info-value">{{ digimon.name }}</h3>
+            </ion-label>
+          </ion-item>
+
+          <ion-item class="info-item">
+            <ion-icon name="flash-outline" slot="start" color="warning"></ion-icon>
+            <ion-label>
+              <p class="info-label">NIVEL DE EVOLUCIÓN</p>
+              <h3 class="info-value">{{ digimon.level }}</h3>
+            </ion-label>
+          </ion-item>
+
+          <ion-item class="info-item">
+            <ion-icon name="globe-outline" slot="start" color="success"></ion-icon>
+            <ion-label>
+              <p class="info-label">MUNDO</p>
+              <h3 class="info-value">Digital World</h3>
+            </ion-label>
+          </ion-item>
+
+          <ion-item class="info-item">
+            <ion-icon name="shield-outline" slot="start" color="tertiary"></ion-icon>
+            <ion-label>
+              <p class="info-label">ESTADO</p>
+              <h3 class="info-value">Registrado en DigiDex</h3>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+        <!-- Botón de regreso -->
+        <div class="back-button-container">
+          <ion-button
+            (click)="goBack()"
+            expand="block"
+            color="primary"
+            shape="round"
+            fill="solid"
+            class="back-btn">
+            <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+            Volver al DigiDex
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
