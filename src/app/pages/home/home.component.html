@@ -57,7 +57,7 @@
         *ngFor="let digimon of filteredDigimons"
         (click)="flipCard(digimon)">
 
-        <div class="card" [class.flipped]="flippedCardId === digimon.id">
+        <div class="card" [class.flipped]="flippedCards.has(digimon.id)">
 
           <!-- Frente -->
           <div class="card-face card-front">

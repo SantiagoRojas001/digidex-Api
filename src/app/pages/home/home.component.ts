@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
@@ -9,23 +9,18 @@ import { DataService, Digimon, DigimonDetail } from '../../servicios/data.servic
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   digimons: Digimon[] = [];
   filteredDigimons: Digimon[] = [];
   isLoading = true;
   searchTerm = '';
-  flippedCardId: number | null = null;
+  flippedCards = new Set<number>();
   detailCache: { [id: number]: DigimonDetail } = {};
-  private flipTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(private dataService: DataService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadDigimons();
-  }
-
-  ngOnDestroy(): void {
-    if (this.flipTimeout) clearTimeout(this.flipTimeout);
   }
 
   loadDigimons(): void {
@@ -63,23 +58,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   flipCard(digimon: Digimon): void {
-    if (this.flipTimeout) {
-      clearTimeout(this.flipTimeout);
-      this.flipTimeout = null;
-    }
-    if (this.flippedCardId === digimon.id) {
-      this.flippedCardId = null;
-      return;
-    }
-    if (this.flippedCardId !== null) {
-      this.flippedCardId = null;
-      this.flipTimeout = setTimeout(() => {
-        this.flipTimeout = null;
-        this.flippedCardId = digimon.id;
-      }, 560);
+    const next = new Set(this.flippedCards);
+    if (next.has(digimon.id)) {
+      next.delete(digimon.id);
     } else {
-      this.flippedCardId = digimon.id;
+      next.add(digimon.id);
     }
+    this.flippedCards = next;
   }
 
   goToDetail(event: Event, digimon: Digimon): void {
@@ -92,12 +77,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   doRefresh(event: any): void {
-    if (this.flipTimeout) {
-      clearTimeout(this.flipTimeout);
-      this.flipTimeout = null;
-    }
     this.searchTerm = '';
-    this.flippedCardId = null;
+    this.flippedCards = new Set<number>();
     this.detailCache = {};
     this.dataService.getDigimons().subscribe({
       next: (data) => {
