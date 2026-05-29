@@ -80,10 +80,6 @@
           <div class="card-face card-back">
             <h3 class="back-title">DATOS</h3>
 
-            <div *ngIf="loadingIds[digimon.id]" class="back-loading">
-              <ion-spinner name="bubbles" color="primary"></ion-spinner>
-            </div>
-
             <ng-container *ngIf="detailCache[digimon.id]">
               <div class="stat-row">
                 <span class="stat-label">NIVEL</span>

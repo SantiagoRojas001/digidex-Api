@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { from } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 import { DataService, Digimon, DigimonDetail } from '../../servicios/data.service';
 
 @Component({
@@ -14,7 +16,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   searchTerm = '';
   flippedCardId: number | null = null;
   detailCache: { [id: number]: DigimonDetail } = {};
-  loadingIds: { [id: number]: boolean } = {};
   private flipTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(private dataService: DataService, private router: Router) {}
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.digimons = data;
         this.filteredDigimons = data;
         this.isLoading = false;
+        this.precargarDetalles(data);
       },
       error: (err) => {
         console.error('Error al cargar digimons:', err);
@@ -42,25 +44,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
+  private precargarDetalles(lista: Digimon[]): void {
+    from(lista).pipe(
+      mergeMap(d => this.dataService.getDigimonDetail(d.id), 5)
+    ).subscribe({
+      next: (detail) => {
+        this.detailCache = { ...this.detailCache, [detail.id]: detail };
+      },
+      error: () => {}
+    });
+  }
+
   filterDigimons(): void {
     const term = this.searchTerm.toLowerCase().trim();
     this.filteredDigimons = !term
       ? this.digimons
       : this.digimons.filter(d => d.name.toLowerCase().includes(term));
-  }
-
-  private loadDetail(id: number): void {
-    if (this.detailCache[id]) return;
-    this.loadingIds = { ...this.loadingIds, [id]: true };
-    this.dataService.getDigimonDetail(id).subscribe({
-      next: (detail) => {
-        this.detailCache = { ...this.detailCache, [id]: detail };
-        this.loadingIds = { ...this.loadingIds, [id]: false };
-      },
-      error: () => {
-        this.loadingIds = { ...this.loadingIds, [id]: false };
-      }
-    });
   }
 
   flipCard(digimon: Digimon): void {
@@ -73,16 +72,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       return;
     }
     if (this.flippedCardId !== null) {
-      // Espera que la tarjeta anterior termine de cerrarse antes de abrir la nueva
       this.flippedCardId = null;
       this.flipTimeout = setTimeout(() => {
         this.flipTimeout = null;
         this.flippedCardId = digimon.id;
-        this.loadDetail(digimon.id);
       }, 560);
     } else {
       this.flippedCardId = digimon.id;
-      this.loadDetail(digimon.id);
     }
   }
 
@@ -103,12 +99,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.searchTerm = '';
     this.flippedCardId = null;
     this.detailCache = {};
-    this.loadingIds = {};
     this.dataService.getDigimons().subscribe({
       next: (data) => {
         this.digimons = data;
         this.filteredDigimons = data;
         event.target.complete();
+        this.precargarDetalles(data);
       },
       error: () => event.target.complete()
     });

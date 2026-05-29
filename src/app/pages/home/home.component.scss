@@ -197,6 +197,29 @@ ion-content {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .card-level {
+    display: block;
+    font-size: 8px;
+    font-weight: 800;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-align: center;
+    margin-top: 3px;
+
+    &::before { content: '◆ '; font-style: normal; font-size: 6px; }
+
+    &.level-fresh       { color: #2dd36f; text-shadow: 0 0 5px rgba(45,211,111,0.6); }
+    &.level-in-training { color: #7a49e0; text-shadow: 0 0 5px rgba(122,73,224,0.6); }
+    &.level-rookie      { color: #3880ff; text-shadow: 0 0 5px rgba(56,128,255,0.6); }
+    &.level-champion    { color: #b07d00; text-shadow: 0 0 5px rgba(176,125,0,0.4); }
+    &.level-ultimate    { color: #eb445a; text-shadow: 0 0 5px rgba(235,68,90,0.6); }
+    &.level-mega        { color: #333;    text-shadow: none; }
+    &.level-ultra       { color: #777; }
+    &.level-armor       { color: #089a87; text-shadow: 0 0 5px rgba(8,154,135,0.5); }
+    &.level-unknown     { color: #ccc; letter-spacing: 3px; font-style: normal; }
+  }
 }
 
 // ─── Reverso ────────────────────────────────────────────────
@@ -215,14 +238,6 @@ ion-content {
     text-decoration: underline;
     text-decoration-color: $accent;
     text-underline-offset: 3px;
-    width: 100%;
-  }
-
-  .back-loading {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
   }
 
