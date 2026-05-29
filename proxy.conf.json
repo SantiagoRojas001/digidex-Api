@@ -1,7 +1,7 @@
 {
   "/api": {
-    "target": "https://digimon-api.com",
-    "secure": false,
+    "target": "https://digi-api.com",
+    "secure": true,
     "changeOrigin": true,
     "pathRewrite": {
       "^/api": "/api"

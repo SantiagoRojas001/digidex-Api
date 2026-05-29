@@ -1,0 +1,10 @@
+{
+  "name": "DigiDex",
+  "short_name": "DigiDex",
+  "theme_color": "#1a1a2e",
+  "background_color": "#1a1a2e",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": []
+}

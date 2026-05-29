@@ -11,7 +11,7 @@
     <ion-searchbar
       [(ngModel)]="searchTerm"
       (ionInput)="filterDigimons()"
-      placeholder="Buscar Digimon por nombre o nivel..."
+      placeholder="Buscar Digimon por nombre..."
       debounce="300"
       animated="true"
       show-clear-button="focus">
@@ -20,7 +20,6 @@
 </ion-header>
 
 <ion-content>
-  <!-- Pull-to-Refresh -->
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pulling-icon="chevron-down-circle-outline"
@@ -30,64 +29,89 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <!-- Loading State con Skeleton -->
-  <div *ngIf="isLoading" class="skeleton-container">
-    <ion-list>
-      <ion-item *ngFor="let i of [1,2,3,4,5,6,7,8]" lines="full">
-        <ion-thumbnail slot="start">
-          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
-        </ion-thumbnail>
-        <ion-label>
-          <h2><ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text></h2>
-          <p><ion-skeleton-text [animated]="true" style="width: 40%"></ion-skeleton-text></p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
+  <!-- Skeleton de carga -->
+  <div *ngIf="isLoading" class="cards-grid">
+    <div class="card-skeleton" *ngFor="let i of [1,2,3,4,5,6,7,8]">
+      <ion-skeleton-text [animated]="true" class="skeleton-img"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" class="skeleton-name"></ion-skeleton-text>
+    </div>
   </div>
 
-  <!-- Lista de Digimons -->
+  <!-- Contenido principal -->
   <div *ngIf="!isLoading">
-    <!-- Sin resultados -->
     <div *ngIf="filteredDigimons.length === 0" class="no-results">
       <ion-icon name="search-outline" size="large"></ion-icon>
       <p>No se encontraron Digimons</p>
     </div>
 
-    <!-- Contador de resultados -->
     <div class="results-count" *ngIf="filteredDigimons.length > 0">
       <ion-chip color="secondary" outline="true">
         <ion-icon name="albums-outline"></ion-icon>
-        <ion-label>{{ filteredDigimons.length }} Digimons encontrados</ion-label>
+        <ion-label>{{ filteredDigimons.length }} Digimons</ion-label>
       </ion-chip>
     </div>
 
-    <ion-list>
-      <ion-item
-        *ngFor="let digimon of filteredDigimons; let i = index"
-        (click)="goToDetail(digimon)"
-        button="true"
-        detail="true"
-        lines="full"
-        class="digimon-item">
+    <div class="cards-grid">
+      <div
+        class="card-container"
+        *ngFor="let digimon of filteredDigimons"
+        (click)="flipCard(digimon)">
 
-        <ion-avatar slot="start" class="digimon-avatar">
-          <img
-            [src]="digimon.img"
-            [alt]="digimon.name"
-            (error)="$any($event.target).src='assets/no-image.png'">
-        </ion-avatar>
+        <div class="card" [class.flipped]="flippedCardId === digimon.id">
 
-        <ion-label>
-          <h2 class="digimon-name">{{ digimon.name }}</h2>
-          <p class="digimon-level">
-            <ion-badge [color]="getLevelColor(digimon.level)">
-              {{ digimon.level }}
-            </ion-badge>
-          </p>
-        </ion-label>
+          <!-- Frente -->
+          <div class="card-face card-front">
+            <span class="card-number">#{{ digimon.id }}</span>
+            <div class="card-image-wrapper">
+              <img
+                [src]="digimon.img"
+                [alt]="digimon.name"
+                (error)="$any($event.target).src='assets/no-image.png'" />
+            </div>
+            <div class="card-footer">
+              <h3 class="card-name">{{ digimon.name | uppercase }}</h3>
+              <span [class]="'card-level ' + getLevelClass(digimon.id)">
+                {{ getLevelText(digimon.id) }}
+              </span>
+            </div>
+          </div>
 
-        <ion-icon name="chevron-forward-outline" slot="end" color="medium"></ion-icon>
-      </ion-item>
-    </ion-list>
+          <!-- Reverso -->
+          <div class="card-face card-back">
+            <h3 class="back-title">DATOS</h3>
+
+            <div *ngIf="loadingIds[digimon.id]" class="back-loading">
+              <ion-spinner name="bubbles" color="primary"></ion-spinner>
+            </div>
+
+            <ng-container *ngIf="detailCache[digimon.id]">
+              <div class="stat-row">
+                <span class="stat-label">NIVEL</span>
+                <span class="stat-value">{{ getLevel(detailCache[digimon.id]) }}</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">TIPO</span>
+                <span class="stat-value">{{ getTypesString(detailCache[digimon.id]) }}</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">ATRIBUTO</span>
+                <span class="stat-value">{{ getAttribute(detailCache[digimon.id]) }}</span>
+              </div>
+              <div class="back-actions">
+                <ion-button
+                  fill="clear"
+                  size="small"
+                  color="primary"
+                  (click)="goToDetail($event, digimon)">
+                  <ion-icon name="open-outline" slot="start"></ion-icon>
+                  Ver más
+                </ion-button>
+              </div>
+            </ng-container>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>
